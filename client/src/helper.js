@@ -15,10 +15,16 @@ Helper.addParentCategoryIdToChildren = (children, propertiesToAdd) => {
 };
 
 Helper.avatarURLForge = (versionsObject) => {
+    var querystring = "";
+
+    for (var key in versionsObject) {
+        if (versionsObject.hasOwnProperty(key)) {
+            querystring+=key+"="+versionsObject[key]+"&";
+        }
+    }
+
     return process.env.REACT_APP_AVATAR_GENERATOR_BASEURL +
-      "?skin=" + versionsObject.skin +
-      "&eyes=" + versionsObject.eyes +
-      "&hair_style=" + versionsObject.hair_style;
+      "?" + querystring;
   };
 
 export default Helper;

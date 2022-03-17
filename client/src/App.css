@@ -9,10 +9,12 @@ ul, li{
   padding-inline-end: 0;
 }
 
-
-ul.menu_categories> li:hover ul.menu_versions{
-  display:block;
+ul.menu_categories, ul.menu_versions {
+  height: 100%;
 }
+
+
+
 
 li.category_item {
   border: 1px solid #efefef;
@@ -22,6 +24,10 @@ li.category_item > img{
   width: 100px;
 }
 
+li.category_item > p.category_text {
+  display: none;
+}
+
 ul.menu_versions {
   display:none;
   position:fixed;
@@ -29,6 +35,10 @@ ul.menu_versions {
   left: 150px;
   height: 100%;
   background-color: #fafafa;
+}
+
+ul.menu_categories> li:hover ul.menu_versions{
+  display:block;
 }
 
 ul.menu_versions > li.version_item{
@@ -86,4 +96,9 @@ li.version_item > img {
 .container__sidebar:hover .container__overlay{
   display: block;
 }
+
+.container__overlay:hover{
+  display: none;
+}
+
 

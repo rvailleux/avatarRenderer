@@ -12,18 +12,9 @@ class App extends Component {
     this.state = { skin: "tone1", eyes: "dark" };
   }
 
-  changeHandler = (e) => {
-    console.log("e");
-    console.dir(e);
-    console.log("state");
-    console.dir(this.state);
-    var newAvatar = this.state;
-    this.setState(e);
-    //if (e.skin != null) newAvatar.skin = e.skin;
-    //this.setState(newAvatar);
-  }
-
-  
+  changeHandler = (versionsObject) => {
+    this.setState(versionsObject);
+  }  
 
   render() {
 
@@ -51,6 +42,26 @@ class App extends Component {
               <MenuVersion versionId="long_curly" />
               <MenuVersion versionId="short_curly" />
             </MenuCategory>
+            <MenuCategory categoryId="clothes" categoryText="Vêtements" categoryDefaultValue="suit">
+            <MenuVersion versionId="dress_decoltee" />
+            <MenuVersion versionId="native_tunique" />
+            <MenuVersion versionId="wooly_jumper" />
+            <MenuVersion versionId="suit" />
+            <MenuVersion versionId="gentle_dress" />
+            <MenuVersion versionId="gentle_jumper" />
+            </MenuCategory>
+            <MenuCategory categoryId="face_decoration" categoryText="Pilosité" categoryDefaultValue="beard">
+            <MenuVersion versionId="mustach" />
+            <MenuVersion versionId="beard" />
+              </MenuCategory>
+            <MenuCategory categoryId="eyes_decoration" categoryText="Eyes wear" categoryDefaultValue="brush">
+            <MenuVersion versionId="brush" />
+            </MenuCategory>
+            <MenuCategory categoryId="right_accessories" categoryText="Accessoires" categoryDefaultValue="nabaztag">
+              <MenuVersion versionId="phone" />
+              <MenuVersion versionId="nabaztag" />
+              <MenuVersion versionId="pipe" />
+              </MenuCategory>
           </MenuCategories>
         </div>
         <main className="container__main">

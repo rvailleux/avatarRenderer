@@ -14,9 +14,10 @@ class MenuCategory extends Component {
   }
 
   render() {
-    return (<li id={this.props.categoryName} className="category_item">
-    <img src={process.env.REACT_APP_AVATAR_GENERATOR_BASEURL + "?"+this.props.categoryId+"="+this.props.categoryDefaultValue} alt={"tone1"} />
-    <ul id="skin_versions" className="menu_versions">
+    return (<li id={this.props.categoryId} className="category_item">
+    <img src={process.env.REACT_APP_AVATAR_GENERATOR_BASEURL + "?"+this.props.categoryId+"="+this.props.categoryDefaultValue} alt={this.props.categoryId} />
+    <p className="category_text">{this.props.categoryText}</p>
+    <ul id={this.props.categoryId+"_versions"} className="menu_versions">
       {Helper.addParentCategoryIdToChildren(this.props.children, { parentCategoryId:this.props.categoryId, onClick: this.props.onChange})}
     </ul>
   </li>);
