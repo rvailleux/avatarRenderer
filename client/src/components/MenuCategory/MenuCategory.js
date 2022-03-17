@@ -9,10 +9,6 @@ import Helper from "../../helper";
 // onChange : ({categoryId: versionId})
 class MenuCategory extends Component {
 
-  constructor(props){
-    super(props);
-  }
-
   render() {
     return (<li id={this.props.categoryId} className="category_item">
     <img src={process.env.REACT_APP_AVATAR_GENERATOR_BASEURL + "?"+this.props.categoryId+"="+this.props.categoryDefaultValue} alt={this.props.categoryId} />

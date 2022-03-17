@@ -7,10 +7,6 @@ import Helper from "../../helper";
 // onClick : ({categoryId: versionId}) => void (defined from composition as a child of MenuCategory)
 class MenuVersion extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   onClickHandler(e) {
     var versionsObject = {};
     versionsObject[this.props.parentCategoryId] = this.props.versionId;
