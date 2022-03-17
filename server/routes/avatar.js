@@ -10,7 +10,7 @@ var {
 var router = express.Router();
 
 /* GET avatar. */
-router.get('/c', function(req, res, next) {
+router.get('/', function(req, res, next) {
   res.setHeader('Content-Type',  'image/svg+xml');
   //res.setHeader('Content-Type',  'text/plain;charset=utf-8');
 //   res.sendFile(path.resolve('public/images/avatarComposition.svg'));
@@ -23,8 +23,8 @@ features.push(req.query.right_accessories == undefined ? "" : req.query.right_ac
 features.push(req.query.hair_style == undefined ? "" : req.query.hair_style);
 features.push(req.query.face_decoration == undefined ? "" : req.query.face_decoration);
 features.push(req.query.clothes == undefined ? "" : req.query.clothes);
-features.push(req.query.eyes == undefined ? "blue" : req.query.eyes);
-features.push(req.query.skin == undefined ? "tone1" : req.query.skin);
+features.push(req.query.eyes == undefined ? "" : req.query.eyes);
+features.push(req.query.skin == undefined ? "" : req.query.skin);
 
 
  // load the original SVG image from the server's file system
