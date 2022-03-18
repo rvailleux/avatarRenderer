@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import MenuCategories from './components/MenuCategories';
 import './App.css';
 import MenuVersion from './components/MenuVersion/MenuVersion';
