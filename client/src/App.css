@@ -5,6 +5,7 @@
 
 ul, li{
   list-style: none;
+  margin:0;
   padding-inline-start: 0;
   padding-inline-end: 0;
 }
@@ -12,9 +13,6 @@ ul, li{
 ul.menu_categories, ul.menu_versions {
   height: 100%;
 }
-
-
-
 
 li.category_item {
   border: 1px solid #efefef;
@@ -83,10 +81,10 @@ li.version_item > img {
 
 .container__sidebar {
   /* Take full height */
-  /*height: 100%;
+  height: 100%;
   left: 0;
-  position: fixed;
-  top: 0;*/
+  position: absolute;
+  top: 0;
   width: 150px;
 
   /* Background */
@@ -101,4 +99,18 @@ li.version_item > img {
   display: none;
 }
 
+.header {
+  /* Stick to the top */
+  position: sticky;
+  top: 0;
+  display: block;
+  height: 50px; 
+  padding-top: 10px;
+}
 
+input.poly {
+   /* Border */
+   border: 1px solid rgba(0, 0, 0, 0.3);
+   font-size: large;
+   color: #ddd;
+}
