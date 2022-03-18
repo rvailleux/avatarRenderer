@@ -1,0 +1,9 @@
+{
+    "skin": { "text": "Peau", "versions": ["tone1", "tone2", "tone3", "tone4"]},
+    "eyes": {"text" : "Yeux", "versions" : ["dark", "brown", "green", "blue"]}, 
+    "eyes_style" : {"text": "Décoration Yeux", "versions" :["brush"]},
+    "hair_style" : {"text": "Coiffure", "versions" :["long_falling", "native_coiff", "top_notch", "short_bushy","long_curly", "short_curly"]},
+    "clothes" : {"text": "Vêtements", "versions" :["dress_decoltee", "native_tunique", "wooly_jumper", "suit", "gentle_dress", "gentle_jumper"]},
+    "face_decoration": {"text": "Pilosité", "versions" :["mustach", "beard"]},
+    "right_accessories" : {"text": "Accessoires", "versions" : ["phone", "nabaztag", "pipe"]}
+}

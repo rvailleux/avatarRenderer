@@ -1,39 +1,64 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import MenuCategories from './components/MenuCategories';
 import './App.css';
 import MenuVersion from './components/MenuVersion/MenuVersion';
 import MenuCategory from './components/MenuCategory/MenuCategory';
 import Helper from './helper';
+import AllVersions from './possibleVersions.json'
 
-class App extends Component {
+function App() {
 
-  constructor(props) {
-    super(props);
-    this.state = { skin: "tone1", eyes: "dark" };
+  const queryParams = new URLSearchParams(window.location.search);
+  let initialConfiguration = {};
+  for (var key in AllVersions) {
+    if (queryParams.get(key) != null) {
+      initialConfiguration[key] = queryParams.get(key);
+    }
   }
 
-  changeHandler = (versionsObject) => {
-    this.setState(versionsObject);
-  }
+  //Use state to store current configuration
+  const [avatarConfiguration, setAvatarConfiguration] = useState(initialConfiguration);
 
-  render() {
 
-    return (
-      <div className="App">
-        <MenuCategories onChange={this.changeHandler}>
-          <MenuCategory categoryId="skin" categoryText="Peau" categoryDefaultValue="tone1">
+  var changeHandler = (configurationObject) => {
+    //Update with newly selected feature
+    let newVersion = { ...avatarConfiguration, ...configurationObject };
+    setAvatarConfiguration(newVersion);
+
+    //Update query parameter in the URL to provide  a direct link back to this configuration
+    window.history.replaceState(null, "Avatar Generator", "/?" + Helper.avatarQueryParamsForge(newVersion));
+  };
+
+  return (
+    <div className="App">
+      <MenuCategories onChange={changeHandler}>
+        {Object.entries(AllVersions).map(entry => {
+          return <MenuCategory categoryId={entry[0]}
+            categoryText={entry[1].text}
+            categoryDefaultThumb={entry[1].versions[0]}>
+            {
+              entry[1].versions.map(version => {
+                return (<MenuVersion versionId={version} />);
+              })
+            }
+
+          </MenuCategory>;
+
+        })
+        }
+        {/* <MenuCategory categoryId="skin" categoryText="Peau">
             <MenuVersion versionId="tone1" />
             <MenuVersion versionId="tone2" />
             <MenuVersion versionId="tone3" />
             <MenuVersion versionId="tone4" />
           </MenuCategory>
-          <MenuCategory categoryId="eyes" categoryText="Yeux" categoryDefaultValue="blue">
+          <MenuCategory categoryId="eyes" categoryText="Yeux">
             <MenuVersion versionId="dark" />
             <MenuVersion versionId="brown" />
             <MenuVersion versionId="green" />
             <MenuVersion versionId="blue" />
           </MenuCategory>
-          <MenuCategory categoryId="hair_style" categoryText="Coiffure" categoryDefaultValue="short_bushy">
+          <MenuCategory categoryId="hair_style" categoryText="Coiffure">
             <MenuVersion versionId="long_falling" />
             <MenuVersion versionId="ameridian_coiff" />
             <MenuVersion versionId="top_notch" />
@@ -53,23 +78,22 @@ class App extends Component {
             <MenuVersion versionId="mustach" />
             <MenuVersion versionId="beard" />
           </MenuCategory>
-          <MenuCategory categoryId="eyes_decoration" categoryText="Eyes wear" categoryDefaultValue="brush">
+          <MenuCategory categoryId="eyes_style" categoryText="Eyes wear" categoryDefaultValue="brush">
             <MenuVersion versionId="brush" />
           </MenuCategory>
           <MenuCategory categoryId="right_accessories" categoryText="Accessoires" categoryDefaultValue="nabaztag">
             <MenuVersion versionId="phone" />
             <MenuVersion versionId="nabaztag" />
             <MenuVersion versionId="pipe" />
-          </MenuCategory>
-        </MenuCategories>
-        <main className="container__main">
-          <img src={Helper.avatarURLForge(this.state)} alt="avatar" />
-          <button>Télécharger l'avatar en PNG</button>
-          <button>Obtenir le lien</button>
-        </main>
-      </div >
-    );
-  }
+          </MenuCategory>*/}
+      </MenuCategories>
+      <main className="container__main">
+        <img src={Helper.avatarURLForge(avatarConfiguration)} alt="avatar" />
+        <button>Télécharger l'avatar en PNG</button>
+        <button>Obtenir le lien</button>
+      </main>
+    </div >
+  );
 }
 
 export default App;

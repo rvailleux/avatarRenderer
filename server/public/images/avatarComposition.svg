@@ -13,7 +13,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.48.5 r10040"
-   sodipodi:docname="avatar composition.svg">
+   sodipodi:docname="avatarComposition.svg">
   <defs
      id="defs2">
     <clipPath
@@ -178,10 +178,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7923674"
-     inkscape:cx="120.81637"
+     inkscape:cx="-187.12159"
      inkscape:cy="292.36794"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer17"
+     inkscape:current-layer="g2948"
      inkscape:document-rotation="0"
      showgrid="false"
      inkscape:snap-global="false"
@@ -517,13 +517,7 @@
        style="display:none">
       <g
          id="g2948"
-         transform="matrix(0.39769563,0,0,-0.39415903,102.2176,109.59626)">
-        <path
-           d="m 0,0 c -0.064,20.544 -23.519,37.125 -52.38,37.039 -28.859,-0.09 -52.203,-16.818 -52.14,-37.356 l 0.094,-74.556 104.517,0.319 z"
-           style="fill:#07b7d1;fill-opacity:1;fill-rule:nonzero;stroke:none"
-           id="path2950"
-           inkscape:connector-curvature="0" />
-      </g>
+         transform="matrix(0.39769563,0,0,-0.39415903,102.2176,109.59626)" />
       <g
          id="g2952"
          transform="matrix(0.39769563,0,0,-0.39415903,70.094733,97.321911)">
@@ -1451,7 +1445,7 @@
     <g
        inkscape:groupmode="layer"
        id="layer28"
-       inkscape:label="ameridian_coiff"
+       inkscape:label="native_coiff"
        transform="matrix(0.59069273,0,0,-0.58554118,-60.443935,185.1372)"
        style="display:none">
       <g

@@ -49,7 +49,7 @@ ul.menu_versions > li.version_item:hover{
   margin:0;
 }
 
-li.version_item > img {
+li.version_item  img {
   width: 100px;
 }
 

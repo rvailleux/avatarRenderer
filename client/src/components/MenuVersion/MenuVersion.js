@@ -8,23 +8,24 @@ import Helper from "../../helper";
 class MenuVersion extends Component {
 
   onClickHandler(e) {
-    var versionsObject = {};
-    versionsObject[this.props.parentCategoryId] = this.props.versionId;
+    var configurationObject = {};
+    configurationObject[this.props.parentCategoryId] = this.props.versionId;
 
     if (this.props.onClick != null) {
-      this.props.onClick(versionsObject);
+      this.props.onClick(configurationObject);
     }
   }
 
   render() {
-    var versionsObject = {};
-    versionsObject[this.props.parentCategoryId] = this.props.versionId;
+    var configurationObject = {};
+    configurationObject[this.props.parentCategoryId] = this.props.versionId;
     return (
       <li id={this.props.versionId}
         className="version_item"
         onClick={this.onClickHandler.bind(this)}
       >
-        <img src={Helper.avatarURLForge(versionsObject)} alt={this.props.versionId} />
+          <img src={Helper.avatarURLForge(configurationObject)} alt={this.props.versionId} />
+      
       </li>
     )
   }
