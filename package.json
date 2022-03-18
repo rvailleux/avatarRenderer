@@ -3,7 +3,8 @@
     "create-react-component-folder": "^0.3.7"
   },
   "scripts": {
-    "start": "node ./client/bin/www",
-    "build":  "cd ./server && npm install && cd ../client && npm install && npm run build"
+    "start": "node ./server/bin/www",
+    "build":  "cd ./server && npm install && cd ../client && npm install && npm run build",
+    "install": "cd ./server && npm install && cd ../client && npm install"
   }
 }
