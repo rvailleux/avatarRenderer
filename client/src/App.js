@@ -89,8 +89,8 @@ function App() {
       </MenuCategories>
       <main className="container__main">
         <img src={Helper.avatarURLForge(avatarConfiguration)} alt="avatar" />
-        <button>Télécharger l'avatar en PNG</button>
-        <button>Obtenir le lien</button>
+        {/* <button>Télécharger l'avatar en PNG</button>
+        <button>Random</button> */}
       </main>
     </div >
   );
