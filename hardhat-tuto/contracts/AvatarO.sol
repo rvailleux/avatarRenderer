@@ -18,7 +18,7 @@ contract AvatarO is ERC721, Ownable, ERC721Enumerable, ERC721URIStorage {
     {}
 
     // public
-    function mint(string memory _imageURI)  public payable returns (uint256) {
+    function mint(string memory _metadataURI)  public payable returns (uint256) {
         uint256 supply = totalSupply();
         require(!paused, "Contract paused, no minting allowed.");
         require(
@@ -34,7 +34,7 @@ contract AvatarO is ERC721, Ownable, ERC721Enumerable, ERC721URIStorage {
 
         _safeMint(msg.sender, supply + 1);
 
-        _setTokenURI(supply + 1, _imageURI);
+        _setTokenURI(supply + 1, _metadataURI);
 
         return supply + 1;
     }
