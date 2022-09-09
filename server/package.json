@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "debug": "nodemon ./bin/www",
-    "start": "node ./bin/www",
-    "build":  "npm install && cd ../client && npm install && npm run build"
+    "start": "node ./bin/www" 
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
