@@ -1,36 +1,39 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+import createError from 'http-errors';
+import express from 'express';
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
 
-var avatarRouter = require('./routes/avatar');
-var app = express();
+import avatarRouter from './routes/avatar.js';
+import pushToIPFSRouter from './routes/pushToIPFS.js';
+
+const App = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+App.set('views', './views');
+App.set('view engine', 'jade');
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.resolve(__dirname, '../client/build')));
+App.use(logger('dev'));
+App.use(express.json());
+App.use(express.urlencoded({ extended: false }));
+App.use(cookieParser());
+App.use(express.static('public'));
+App.use(express.static('../client/build'));
 
 //app.use('/', indexRouter);
-app.use('/avatar', avatarRouter);
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+App.use('/avatar', avatarRouter);
+App.use('/pushtoIPFS', pushToIPFSRouter);
+
+App.get('*', (req, res) => {
+  res.sendFile(new URL('../client/build/index.html', import.meta.url).pathname ); 
 });
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+App.use(function(req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+App.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -40,4 +43,4 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+export default App;

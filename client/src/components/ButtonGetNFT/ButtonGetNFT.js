@@ -1,29 +1,48 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './ButtonGetNFT.css';
-import Helper from '../../helper';
+import util from 'util';
 
-const ButtonGetNft = () => {
+const ButtonGetNft = (props) => {
 
-  const handleploadAvatarToIPFS = event => {
-    fetch(Helper.avatarURLForge())
-      .then((response) => response.json())
-      .then((data) => {
-         console.log(data);
-         setPosts(data);
-      })
-      .catch((err) => {
-         console.log(err.message);
+  const handleUploadAvatarToIPFS = event => {
+
+
+    if (props.avatarVersion === null)
+      throw new Error("No Avatar version to upload");
+
+    //console.log(util.inspect(Object.entries(props.avatarVersion)))
+
+    var searchParamString = "?"
+    for (const [key, value] of Object.entries(props.avatarVersion)) {
+      if(value != null)
+       searchParamString += key + "=" + value + "&";
+    };
+
+    //console.log(queryParams(props.avatarVersion))
+
+    var urlIPFS = "/pushtoIPFS?"+searchParamString;
+    console.log(urlIPFS);
+    fetch(urlIPFS)
+      .then(res => res.text())
+      .then(text => console.log(text))
+      .catch(err => {
+        console.log(err);
       });
   };
 
   return (<div className="ButtonGetNFT">
-   <button className='action-button' onClick={handleploadAvatarToIPFS} >Upload to IPFS</button>
+    <button className='action-button'
+      onClick={handleUploadAvatarToIPFS}>Upload to IPFS</button>
   </div>);
 };
 
-ButtonGetNft.propTypes = {};
+ButtonGetNft.propTypes = {
+  avatarVersion: PropTypes.object
+};
 
-ButtonGetNft.defaultProps = {};
+ButtonGetNft.defaultProps = {
+  avatarVersion: null
+};
 
 export default ButtonGetNft;

@@ -7,7 +7,7 @@ import Helper from "../../helper";
 // categoryId : string
 // categoryDefaultThumb : string
 // onChange : ({categoryId: versionId})
-class MenuCategory extends Component {
+class MenuVersions extends Component {
 
   render() {
     return (
@@ -17,11 +17,11 @@ class MenuCategory extends Component {
         <p className="category_text">{this.props.categoryText}</p>
         
         <ul id={this.props.categoryId + "_versions"} className="menu_versions">
-          {Helper.addParentCategoryIdToChildren(this.props.children, { parentCategoryId: this.props.categoryId, onClick: this.props.onChange })}
+          {Helper.addPropertyToChildren(this.props.children, { parentCategoryId: this.props.categoryId, onClick: this.props.onChange })}
         </ul>
 
       </li>);
   }
 }
 
-export default MenuCategory;
+export default MenuVersions;

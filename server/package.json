@@ -2,16 +2,20 @@
   "name": "avatarrenderer",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "debug": "nodemon ./bin/www",
-    "start": "node ./bin/www" 
+    "debug": "nodemon ./bin/www.js",
+    "start": "node ./bin/www.js"
   },
   "dependencies": {
+    "@pinata/sdk": "^1.1.26",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
+    "jade": "^1.11.0",
     "morgan": "~1.9.1",
+    "node-fetch": "^3.2.10",
     "nodemon": "^2.0.15",
     "svgson": "^5.2.1"
   }

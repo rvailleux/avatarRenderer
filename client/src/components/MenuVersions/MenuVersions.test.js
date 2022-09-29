@@ -1,10 +1,10 @@
 import React from "react";
 import { shallow } from "enzyme";
-import MenuCategories from "./MenuCategories";
+import MenuVersion from "./MenuVersion";
 
-describe("MenuCategories", () => {
+describe("MenuVersion", () => {
   test("matches snapshot", () => {
-    const wrapper = shallow(<MenuCategories />);
+    const wrapper = shallow(<MenuVersion />);
     expect(wrapper).toMatchSnapshot();
   });
 });

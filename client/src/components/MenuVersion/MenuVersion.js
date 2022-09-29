@@ -25,7 +25,6 @@ class MenuVersion extends Component {
         onClick={this.onClickHandler.bind(this)}
       >
           <img src={Helper.avatarURLForge(configurationObject)} alt={this.props.versionId} />
-      
       </li>
     )
   }
