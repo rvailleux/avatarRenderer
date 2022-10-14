@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract AvatarO is ERC721, Ownable, ERC721Enumerable, ERC721URIStorage {
+contract AvatarRenderer is ERC721, Ownable, ERC721Enumerable, ERC721URIStorage {
     using Strings for uint256;
 
     uint256 public cost = 0.08 ether;
@@ -63,14 +63,6 @@ contract AvatarO is ERC721, Ownable, ERC721Enumerable, ERC721URIStorage {
     function pause(bool _state) public onlyOwner {
         paused = _state;
     }
-
-    /* 
-  function withdraw() public payable onlyOwner {
-    (bool hs, ) = payable(0x97D348fe58478a1FA29de4726134815A57834880).call{value: address(this).balance * 50 / 100}("");
-    require(hs);
-    (bool os, ) = payable(owner()).call{value: address(this).balance}("");
-    require(os);
-  }*/
 
     function _beforeTokenTransfer(
         address from,
