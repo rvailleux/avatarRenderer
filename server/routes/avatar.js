@@ -17,7 +17,8 @@ AvatarRouter.get('/', (req, res, next) => {
     });
 
   }).catch(err =>{
-    res.status(404).send("Cached image not found.");
+    //console.log(err);
+    res.status(404).send("Cached image not found : " + err);
   });
 });
 

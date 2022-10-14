@@ -53,7 +53,7 @@ Helper.avatarQueryParamsForge = (versionsObject) => {
 
 Helper.avatarURLForge = (versionsObject) => {
 
-  return process.env.REACT_APP_AVATAR_GENERATOR_BASEURL +
+  return process.env.REACT_APP_BACKEND_BASEURL + process.env.REACT_APP_AVATAR_GENERATOR_BASEURL +
     "?" + Helper.avatarQueryParamsForge(versionsObject);
 };
 

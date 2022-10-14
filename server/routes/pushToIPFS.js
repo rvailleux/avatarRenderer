@@ -3,6 +3,7 @@ import fs from 'fs';
 import util, { inspect } from 'util';
 import pinataSDK from '@pinata/sdk';
 import HelperSVG from './helperSVG.js';
+import HelperIPFS from './helperIPFS.js';
 
 /* GET pushtoIPFS 
 @Params : same as avatar API
@@ -11,47 +12,44 @@ import HelperSVG from './helperSVG.js';
 const PushToIPFSRouter = express.Router();
 
 PushToIPFSRouter.get('/', (req, res, next) => {
+    
+    const reqQueryCleaned = HelperSVG.getCleanReqQueryObject(req.query);
 
-    const pinata = pinataSDK('3a85e0eab57aeb01d5d5', '869d30b2ed202acc1e2d3b46f21241aab27fd030eac0703126170f3c47bf234a');
+    HelperSVG.getCachedFilePathFromQueryObject(reqQueryCleaned)
+        .then(avatarFilePath => {
+            HelperIPFS.uploadFileToIPFS(avatarFilePath, "testfile", reqQueryCleaned)
+                .then(avatarHashObject => {
+                    console.log("Avatar pinned : " + util.inspect(avatarHashObject));
 
-    const options = {
-        pinataMetadata: {
-            name: "TestName",
-            keyvalues: req.query
-        },
-        pinataOptions: {
-            cidVersion: 0
-        }
-    };
+                    HelperIPFS.uploadJSONToIPFS(
+                        HelperIPFS.getMetaDataJSONObject(
+                            "testName",
+                            "testdescription",
+                            reqQueryCleaned,
+                            avatarHashObject.IpfsHash),
+                        HelperSVG.getHash({ traits: reqQueryCleaned, metadatafile: "JSON" })
+                    )
+                    .then(metadataHash => {
+                        
+                        console.log(util.inspect(metadataHash));
 
-    pinata.testAuthentication().then((result) => {
-        //handle successful authentication here
-        console.log(result);
-
-        HelperSVG.getCachedFilePathFromQueryObject(req.query).then(avatarFilePath => {
-            console.log(util.inspect(avatarFilePath));
-
-            var filestream = fs.createReadStream(avatarFilePath, 'utf8');
-
-            pinata.pinFileToIPFS(filestream, options).then((result) => {
-                //handle results here
-                console.log(result);
-
-                res.setHeader('Content-Type', 'application/json');
-
-                res.status(200).send(result);
-
-            }).catch((err) => {
-                //handle error here
-                console.log(err);
-            });
-
+                        res.set('Access-Control-Allow-Origin', '*');
+                        res.setHeader('Content-Type', 'application/json');
+                        // send SVG XML in the response
+                        res.status(200).send(metadataHash);
+                    })
+                    .catch(err =>{
+                        console.error(err);
+                    });
+                })
+                .catch((err) => {
+                    //handle error here
+                    console.error(err);
+                });
+        }).catch((err) => {
+            //handle error here
+            console.error(err);
         });
-
-    }).catch((err) => {
-        //handle error here
-        console.log(err);
-    });
 });
 
 export default PushToIPFSRouter;

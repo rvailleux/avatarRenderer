@@ -1,11 +1,31 @@
 import { createHash } from 'crypto';
-import { resolveCaa } from 'dns';
 import fs from 'fs';
 import { url } from 'inspector';
 import { parse, stringify } from 'svgson';
 import { inspect } from 'util';
 
 class HelperSVG { }
+
+/**
+ * remove useless params 
+ */
+HelperSVG.getCleanReqQueryObject = function(reqQueryFromURL = {}){
+    
+    let features = {};
+
+    Object.keys(reqQueryFromURL).forEach(function(key,index) {
+        // key: the name of the object key
+        // index: the ordinal position of the key within the object 
+        if(reqQueryFromURL[key] !== null){
+            features[key] = reqQueryFromURL[key]
+        }
+    });
+    return features;
+}
+
+HelperSVG.getHash = function(input){
+    return (createHash('sha1').update(inspect(input)).digest('hex'))
+}
 
 HelperSVG.getPathToImageFolder = function (publicURL = false) {
 
@@ -25,7 +45,7 @@ HelperSVG.getPathToCachedImageFolder = function (publicURL = false) {
 }
 
 HelperSVG.getPathToCachedImage = function (reqQueryObject, publicURL = false) {
-    return new URL(this.getPathToCachedImageFolder(publicURL) + (createHash('sha1').update(inspect(reqQueryObject)).digest('hex')) + ".svg");
+    return new URL(this.getPathToCachedImageFolder(publicURL) + HelperSVG.getHash(reqQueryObject) + ".svg");
 }
 
 HelperSVG.getPublicURLToCachedImage = function (reqQueryObject) {
@@ -37,10 +57,10 @@ HelperSVG.getSVGCachedFileIfExisting = function (reqQueryObject) {
 
     try {
         if (fs.existsSync(pathToFile)) {
-            console.log("Exist " + pathToFile)
+            //console.log("Exist " + pathToFile)
             return pathToFile;
         } else {
-            console.log("Don t Exist " + pathToFile)
+            //console.log("Don t Exist " + pathToFile)
             return null;
         }
     } catch (err) {
@@ -49,17 +69,7 @@ HelperSVG.getSVGCachedFileIfExisting = function (reqQueryObject) {
 }
 
 HelperSVG.getFeaturesFromQuery = function (reqQueryObject) {
-    let features = [];
-
-    reqQueryObject.eyes_style == undefined ? null : features.push(reqQueryObject.eyes_style);
-    reqQueryObject.right_accessories == undefined ? null : features.push(reqQueryObject.right_accessories);
-    reqQueryObject.hair_style == undefined ? null : features.push(reqQueryObject.hair_style);
-    reqQueryObject.face_decoration == undefined ? null : features.push(reqQueryObject.face_decoration);
-    reqQueryObject.clothes == undefined ? null : features.push(reqQueryObject.clothes);
-    reqQueryObject.eyes == undefined ? null : features.push(reqQueryObject.eyes);
-    reqQueryObject.skin == undefined ? null : features.push(reqQueryObject.skin);
-
-    return features;
+   return Object.values(HelperSVG.getCleanReqQueryObject(reqQueryObject));
 }
 
 HelperSVG.getSVGXMLFromQueryObject = function (reqQueryObject) {
@@ -84,7 +94,7 @@ HelperSVG.getSVGXMLFromQueryObject = function (reqQueryObject) {
                     feature.children.map((version, index) => {
                         if (version.name == "g" && features.includes(version.attributes["inkscape:label"])) {
                             version.attributes.style = "display:inline";
-                        } else {
+                        } else { 
                             version.attributes.style = "display:none";
                         }
 
@@ -104,7 +114,10 @@ HelperSVG.cacheNewAvatar = function (reqQueryObject, SVGXMLString) {
         var pathToFile = this.getPathToCachedImage(reqQueryObject);
         // write on the filesystem
         fs.writeFile(pathToFile, SVGXMLString, (err) => {
-            if (err) reject(err);
+            if (err) {
+                console.log(err);
+                reject(err);
+            }
 
             resolve(pathToFile);
         });
@@ -117,14 +130,16 @@ HelperSVG.getCachedFilePathFromQueryObject = function (reqQueryObject) {
 
         var alreadyExistingCachedFilePath = HelperSVG.getSVGCachedFileIfExisting(reqQueryObject);
 
-        if (alreadyExistingCachedFilePath != null) {
+        if (alreadyExistingCachedFilePath !== null) {
            resolve(alreadyExistingCachedFilePath)
-
         //Need to create the avatar and to cache it
         } else {
             HelperSVG.getSVGXMLFromQueryObject(reqQueryObject)
                 .then(svgImageXML => {
                     resolve(HelperSVG.cacheNewAvatar(reqQueryObject, svgImageXML));
+                })
+                .catch(err => {
+                    reject(err);
                 });
         }
     });

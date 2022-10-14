@@ -5,6 +5,9 @@ import logger from 'morgan';
 
 import avatarRouter from './routes/avatar.js';
 import pushToIPFSRouter from './routes/pushToIPFS.js';
+import PushtoETH from './routes/pushToETH.js';
+
+
 
 const App = express();
 
@@ -22,6 +25,7 @@ App.use(express.static('../client/build'));
 //app.use('/', indexRouter);
 App.use('/avatar', avatarRouter);
 App.use('/pushtoIPFS', pushToIPFSRouter);
+App.use('/pushtoETH', PushtoETH);
 
 App.get('*', (req, res) => {
   res.sendFile(new URL('../client/build/index.html', import.meta.url).pathname ); 

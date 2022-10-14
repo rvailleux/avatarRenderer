@@ -12,7 +12,7 @@ class MenuVersions extends Component {
   render() {
     return (
       <li id={this.props.categoryId} className="category_item">
-        <img src={process.env.REACT_APP_AVATAR_GENERATOR_BASEURL + "?" + this.props.categoryId + "=" + this.props.categoryDefaultThumb} alt={this.props.categoryId} />
+        <img src={process.env.REACT_APP_BACKEND_BASEURL + process.env.REACT_APP_AVATAR_GENERATOR_BASEURL + "?" + this.props.categoryId + "=" + this.props.categoryDefaultThumb} alt={this.props.categoryId} />
         
         <p className="category_text">{this.props.categoryText}</p>
         

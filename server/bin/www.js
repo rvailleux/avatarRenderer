@@ -4,6 +4,9 @@
  * Module dependencies.
  */
 
+ import dotenv from 'dotenv';
+ dotenv.config();
+
 import debug from 'debug';
 import http from 'http';
 import App from '../app.js';
@@ -13,6 +16,8 @@ import App from '../app.js';
  */
 
 var port = normalizePort(process.env.PORT || '3030');
+
+console.log(process.env.PORT)
 App.set('port', port);
 
 /**
